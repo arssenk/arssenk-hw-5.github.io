@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+
+    <title>HW-5_Senkivskyy</title>
+</head>
+<body>
+<div>
+    <div id="viz"></div>
+</div>
+</body>
+
+<script>
+    var chart = {
+        "title": "General population in Ukraine over years",
+        "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+        "data": {"url": "processed_data.csv"},
+
+        "width": 960,
+        "height": 300,
+        "layer": [{
+            "mark": "area",
+            "encoding": {
+                "x": {
+                    "field": "year",
+                    "type": "temporal",
+                    "axis": {"title": ""}
+                },
+                "y": {
+                    "field": "number",
+                    "type": "quantitative",
+                    "title": "",
+                    "axis": {"tickCount": 10, "format": "s"}
+                },
+                "color": {
+                    "field": "gender",
+                    "type": "nominal",
+                    "scale": {"range": ["#5271bc", "#d5117c"]},
+                    "legend": null
+                }
+            }
+        }, {
+            "data": {
+                "values": [
+                    {"year": "2002", "number": 15000000, "gender": "man"},
+                    {"year": "2002", "number": 35000000, "gender": "woman"}
+                ]
+            },
+            "mark": {"type": "text", "align": "left", "baseline": "middle","fontSize": 12},
+            "encoding": {
+                "text": {
+                    "field": "gender",
+                    "type": "nominal"
+                },
+                "x": {
+                    "field": "year",
+                    "type": "temporal",
+                    "axis": {"title": ""}
+                },
+                "y": {
+                    "field": "number",
+                    "type": "quantitative"
+                }
+            }
+        }, {
+            "data": {
+                "values": [
+                    {"year": "2014", "number": 46000000, "value": "|without annexed territories"}
+                ]
+            },
+            "mark": {"type": "text", "align": "left", "baseline": "middle"},
+            "encoding": {
+                "text": {
+                    "field": "value",
+                    "type": "nominal",
+                    "size": "15"
+                },
+                "x": {
+                    "field": "year",
+                    "type": "temporal",
+                    "axis": {"title": ""}
+                },
+                "y": {
+                    "field": "number",
+                    "type": "quantitative"
+                }
+            }
+        }]
+
+
+    };
+
+
+    var opts = {
+        "actions": false
+    };
+
+    vegaEmbed('#viz', chart, opts)
+</script>
+</html>
